@@ -3,8 +3,8 @@ import Navbar from '../components/Navbar'
 import Department from '../components/Department'
 import { Product } from "@/types/columns";
 
-async function getProducts(): Promise<Product[]> {
-    const res = await fetch('http://3.88.1.181:8000/products/public/catalog?supplier=FragranceX&first=0&last=20')
+export async function getProducts(): Promise<Product[]> {
+    const res = await fetch('http://3.88.1.181:8000/products/public/catalog?supplier=FragranceX&first=0&last=5')
     const data = await res.json()
     return data
 }

@@ -5,7 +5,7 @@ export type Product = {
     Name: string
     Title: string
     Description: string
-    brand: number
+    Brand: number
     'Cost Price': number
     Quantity: number
     size: number
@@ -13,7 +13,11 @@ export type Product = {
 
 export const columns = [
     {
-        key: 'image',
+        key: 's/n',
+        label: 'S/N'
+    },
+    {
+        key: 'img',
         label: 'Image'
     },
     {

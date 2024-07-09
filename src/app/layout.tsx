@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import  ReduxProvider  from "./redux-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +17,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`max-w-6xl mx-auto px-4 ${inter.className}`}>{children}</body>
+      <body className={`max-w-6xl mx-auto px-4 ${inter.className}`}>
+        <ReduxProvider>
+            {children}
+        </ReduxProvider>
+
+      </body>
     </html>
   );
 }
