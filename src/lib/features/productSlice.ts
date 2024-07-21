@@ -4,31 +4,26 @@ import { RootState } from '../store'
 // import { getProducts } from '.././../app/page'
 
 interface ProductsState {
-    products: Product[];
+    products: Product[] | null;
     item: string,
     status: string,
     error: string | null
   }
 
   export const searchAsyncProducts = createAsyncThunk (
-    'products/searchAsyncProducts', async (term: string) => {
-        const response = await fetch('http://3.88.1.181:8000/products/public/catalog?supplier=FragranceX&search=' + term)
-        console.log(await response.json())
-        return await response.json()
+    'products/searchAsyncProducts', async (term: any) => {
+        try {
+            const response = await fetch('http://3.88.1.181:8000/products/public/catalog?supplier=FragranceX&search=' + term)
+            console.log(await response.json())
+            return await response.json()
+        } catch (err) {
+            console.log(err)
+        }
     }
   )
 
-  export const Products = createAsyncThunk (
-    'products/Products', async () => {
-        const response = await fetch('http://3.88.1.181:8000/products/public/catalog?supplier=FragranceX&first=0&last=5')
-        console.log(await response.json())
-        return await response.json()
-    }
-  )
-
-  
   const initialState: ProductsState = {
-    products: [],
+    products: null || [],
     item: '',
     status: 'idle',
     error: null,
@@ -44,17 +39,6 @@ const productsSlice = createSlice({
         setItem: (state, action) => {
             state.item = action.payload;
         },
-        // filterProducts: (state, action: PayloadAction<string>) => {
-        //     state.searchTerm = action.payload;
-        //     state.searchResults = state.products.filter((product) =>
-        //       product.Name.toLowerCase().includes(action.payload.toLowerCase())
-        //     );
-        //   },\cc  
-      
-        //   clearSearchResults: (state) => {
-        //     state.searchResults = [];
-        //     state.searchTerm = '';
-        //   },
 
     },
     extraReducers: (builder) => {
@@ -63,10 +47,10 @@ const productsSlice = createSlice({
                 console.log('fetched successfully')
                 const data = state.products = action.payload
                 console.log(data)
-        
             });
             builder.addCase(searchAsyncProducts.rejected, (state, action) => {
                 state.status = 'failed'
+                // state.error = action.error.message
                 console.log('rejected')
             });
             builder.addCase(searchAsyncProducts.pending, (state, action) => {
@@ -79,6 +63,8 @@ const productsSlice = createSlice({
 
 export const getProductsStatus = (state: RootState) => state.products.status;
 export const getProductsError = (state: RootState) => state.products.error;
+export const getProducts = (state: RootState) => state.products.products;
+
 
 export const { setProducts, setItem } = productsSlice.actions;
 

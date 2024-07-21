@@ -17,25 +17,8 @@ export default function Navbar() {
   const item = useSelector((state: RootState ) => state.products.item);
 
     const dispatch = useDispatch();
-    // const [searchTerm, setSearchTerm] = useState('')
-    // const [filterValue, setFilterValue] = useState('')
-    // const hasSearchFilter = Boolean(filterValue)
-
-    // const filteredUser = useMemo(() => {
-    //     // if (!setSearchTerm) return products;
-    //     // let filteredUsers = [...products]
-
-    //     // if(hasSearchFilter) {
-    //     const filteredProducts = products.fil
-    //         filteredUsers = filteredUsers.filter(user => 
-    //             user.Name.toLowerCase().includes(filterValue.toLowerCase())
-    //         )
-    //     // }
-
-    //     return products.filter(product => product.Name.toLowerCase().includes(filterValue.toLowerCase()))
-    // }, [products, filterValue])
     
-    const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(item)
         // setSearchTerm(e.target.value);

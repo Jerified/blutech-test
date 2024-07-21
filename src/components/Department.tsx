@@ -5,19 +5,21 @@ import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKey
 import { columns, Product } from "@/types/columns";
 import Image from "next/image";
 import { useDispatch, useSelector } from 'react-redux'
-import { setProducts, Products, getProductsStatus } from '.././lib/features/productSlice'
+import { setProducts, getProductsStatus, getProducts } from '.././lib/features/productSlice'
 import { RootState } from '.././lib/store';
 
 
 export default function Department({ products }: { products: Product[] }) {
     const dispatch = useDispatch()
-    const productStatus = useSelector(getProductsStatus);
+    const Products = useSelector(getProducts);
+
+    // const productStatus = useSelector(getProductsStatus);
 
     // useEffect(() => {
     //     if (productStatus === 'idle') {
-    //         dispatch(Products())
+            dispatch(setProducts(products))
     //     }
-    // }, [dispatch, productStatus])
+    // }, [])
     // dispatch(setProducts(products))
 
 
