@@ -4,6 +4,7 @@ import "./globals.css";
 import  ReduxProvider  from "./redux-provider";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import { Toaster }from 'sonner'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default async function RootLayout({
         <body className={`max-w-6xl mx-auto px-4 ${inter.className}`}>
             <ReduxProvider>
                 {children}
+                <Toaster />
             </ReduxProvider>
         </body>
         </html>
