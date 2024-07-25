@@ -49,25 +49,25 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
     })
 ],
 callbacks: {
-    authorized({ auth, request: { nextUrl } }) {
-        const isLoggedIn = !!auth?.user
-        const paths = [ "/profile", ""];
-        const isProtected = paths.some((path) => nextUrl.pathname.startsWith(path))
+    // authorized({ auth, request: { nextUrl } }) {
+    //     const isLoggedIn = !!auth?.user
+    //     const paths = [ "/profile", ""];
+    //     const isProtected = paths.some((path) => nextUrl.pathname.startsWith(path))
 
-        if ( isProtected && !isLoggedIn ) {
-            const redirectUrl = new URL("/api/auth/signin", nextUrl.origin)
-            redirectUrl.searchParams.append("callbackUrl", nextUrl.href)
-            return Response.redirect(redirectUrl)
-        }
-        return true
-    },
+    //     if ( isProtected && !isLoggedIn ) {
+    //         const redirectUrl = new URL("/api/auth/signin", nextUrl.origin)
+    //         redirectUrl.searchParams.append("callbackUrl", nextUrl.href)
+    //         return Response.redirect(redirectUrl)
+    //     }
+    //     return true
+    // },
     jwt: ({ token, user }) => {
         if ( user ) {
             const u = user as unknown as any;
             return {
                 ...token,
                 id: u.id,
-                randomKey: u.randomKey,
+                randomKey: u.randomKey,        
             };
         }
         return token

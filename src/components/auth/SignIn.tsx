@@ -19,7 +19,9 @@ export default function SignIn() {
     const [error, setError] = useState('')
     const router = useRouter()
     const searchParams = useSearchParams()
-    const callbackUrl = searchParams.get('callbackUrl') || '/profile'
+    const callbackUrl = searchParams.get('callbackUrl')  || '/'
+    // || '/profile'
+    console.log(callbackUrl)
     const { register, handleSubmit, reset, formState: { errors } } = useForm<SignInSchemaType>({ resolver: zodResolver(SignInSchema) });
 
     const onSubmit: SubmitHandler<SignInSchemaType> = async (data) => {
@@ -27,12 +29,13 @@ export default function SignIn() {
         try {
             setSubmitting(true)
             const res = await signIn('credentials', {
-                redirect: false,
+                // redirect: false,
                 email: data.email,
                 password: data.password,
                 redirectTo: callbackUrl
             })
             setSubmitting(false)
+            console.log(res)
 
             if (!res?.error) {
                 toast.success('successfully logged In')
@@ -69,7 +72,7 @@ export default function SignIn() {
                     <div className=' border-b border-gray-200 pt-2' />
                     {errors.password && <span className='text-xs text-red-500 pt-2'>{errors.password.message}</span>}
                 </div>
-                <button className=' bg-[#061D1C] mt-10 w-full uppercase rounded-[0.16px] text-white py-[10px] font-semibold' type="submit">{submitting ? "loading..." : "Sign In"}</button>
+                <button className=' bg-[#061D1C] mt-10 w-full uppercase rounded-[0.16px] text-white py-[10px] font-semibold' type="submit">Sign In</button>
             </form>
             <p className='pt-6 text-gray-600 text-xs font-semibold'>Dont have an account? <Link href="/signup" className='text-[#061D1C] font-bold cursor-pointer hover:underline-offset-4 hover:underline'>Sign up</Link></p>
         </main>
